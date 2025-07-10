@@ -1,19 +1,22 @@
-'''Original notebook from freds0's Collab used to perform inference and/or training on Orpheus TTS model. Inference is performed on his GGUF (quantized) fine-tune (as per inference.py), whereas training is done on top of an Unsloth checkpoint. Modification requirements include: adding scripts responsible for registering user input and generating responses by setting the text to be passed to the inference srcipt; preferably, register user input by means of an STT model; linking training and inference function to the dataset preprocessing scripts previously developed'''
+'''Original notebook from freds0's Collab used to perform inference and/or training on Orpheus TTS model. Inference is performed on his GGUF (quantized) fine-tune (as per inference.py), whereas training is done on top of an Unsloth checkpoint. Modification requirements include: adding scripts responsible for registering user input and generating responses by setting the text to be passed to the inference srcipt; preferably, register user input by means of an STT model; linking training and inference function to the dataset preprocessing scripts previously developed
 
-git clone https://github.com/freds0/Orpheus-TTS-ptbr
+IMPORTANT: If running this on a AWS EC2 instance, remember to install necessary packages. Only installing files from "requirements.txt" won't suffice, nor will running any of the bash scripts by themselves.
+'''
+
+git clone https://github.com/ArtyQT/Orpheus_ptbr_Training_Alt
 
 import os
-os.chdir('/content/Orpheus-TTS-ptbr')
+os.chdir('Orpheus_ptbr_Training_Alt')
 pip install -r requirements.txt
 pip install huggingface_hub
 
 from huggingface_hub import snapshot_download
 
-repo_id = "freds0/orpheus-3b-0.1-finetuned-ptbr"
-local_dir = "/content/Orpheus-TTS-ptbr/orpheus-3b-0.1-finetuned-ptbr"  # Diretório onde os arquivos serão baixados
+repo_id = "canopylabs/3b-es_it-ft-research_release"
+local_dir = "Orpheus_ptbr_Training_Alt/3b-es_it-ft-research_release"  # Diretório onde os arquivos serão baixados
 
 try:
-    downloaded_files = snapshot_download(repo_id=repo_id, local_dir=local_dir)
+    downloaded_files = snapshot_download(repo_id=repo_id, local_dir=local_dir, token=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)
     print("Checkpoint baixado com sucesso para:", local_dir)
     # Opcional: Imprimir a lista de arquivos baixados
     # print("Arquivos baixados:", downloaded_files)
@@ -40,7 +43,7 @@ sentences = [
     "Olá! Eu sou seu assistente de atividades físicas e vim lhe ajudar a atingir sua meta semanal de exercícios. Vamos começar alongando os músculos das pernas, abdômen e lombar. Em seguida, faremos uma corrida de pelo menos 20 minutos na rua ou esteira, a uma velocidade mínima de 4 kilômetros por hora. Depois, faremos um relaxamento alongando novamente os músculos utilizados no exercício anterior."
 ]
 
-nome_arquivo = "/content/Orpheus-TTS-ptbr/sentences.txt"
+nome_arquivo = "Orpheus_ptbr_Training_Alt/sentences.txt"
 
 try:
     with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
@@ -51,9 +54,9 @@ except Exception as e:
     print(f"Ocorreu um erro ao escrever no arquivo: {e}")
 
 python inference.py \
-    --checkpoint_path "/content/Orpheus-TTS-ptbr/orpheus-3b-0.1-finetuned-ptbr" \
-    --input_txt "/content/Orpheus-TTS-ptbr/sentences.txt" \
-    --output_dir "/content/Orpheus-TTS-ptbr/generated_audio_batch" \
+    --checkpoint_path "Orpheus_ptbr_Training_Alt/3b-es_it-ft-research_release" \
+    --input_txt "Orpheus_ptbr_Training_Alt/sentences.txt" \
+    --output_dir "Orpheus_ptbr_Training_Alt/generated_audio_batch" \
     --device cuda
 
 import os
@@ -83,4 +86,4 @@ def play_wav_files_from_folder(folder_path):
     except Exception as e:
       print(f"Erro ao exibir o player para '{wav_file}': {e}")
 
-play_wav_files_from_folder("/content/Orpheus-TTS-ptbr/generated_audio_batch")
+play_wav_files_from_folder("Orpheus_ptbr_Training_Alt/generated_audio_batch")

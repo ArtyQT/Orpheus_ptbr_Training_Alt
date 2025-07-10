@@ -1,6 +1,16 @@
 Considerations on the Voice Agent Training/Preparation
 - Short term solutions: "Off-the-shelf" voice models like OpenAI's gpt-4o, Microsoft's SpeechT5, Google Gemini, others available at HuggingFace, for quick plug-and-play features.
-	- Requirements: Figuring out the rest of the stack (STT models, generative text models for the answers, ASR models); Alternatively picking a framework (RealVoiceChat, PipeCat) that do most of the heavy lifting; Customizing deployment through web and/or mobile framework, as well as integrations.
+	- Requirements: Figuring out the rest of the stack (STT models, generative text models for the answers, ASR models); Alternatively picking a framework (RealVoiceChat, PipeCat) that does most of the heavy lifting; Customizing deployment through web and/or mobile framework, as well as integrations.
 	- Advantages: Quicker development, no need for training, easier testing environments.
 - "Medium" term solutions: Fine-tuning open, realistic models like Orpheus, Dia or CSM on a open dataset like that of Mozilla, CORRAL, LibriSpeech, FalaBrasil.
-	- Requirements: Picking "best" model for finetuning
+	- Requirements: Picking "best" model for finetuning (most likely Orpheus or CSM)
+
+Preparing AWS EC2 for training:
+- Test these scripts with BRSpeech-Leni dataset.
+- Save LoRA adapters/merged model and run inference on it (probably will have to download/play wav files individually, since the machine will save them locally)
+- Pick and adapt new dataset (Mozilla Common Voice, first_pixel's split, custom ds)
+- New fine-tune on the picked dataset
+
+IF these scripts fail:
+- Try to use Orpheus original training scripts from their Git.
+- Install necessary packages globally so there's no need to redo any work when switching repos (pytorch, nvidia_cublas, nvidia_cusparse, nvidia_cufft, nvidia_nccl, nvidia_cudnn, nvidia_cusparselt are by far the largest libraries)

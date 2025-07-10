@@ -24,8 +24,8 @@ All code is based on Unsloath's Jupyter Notebook, available [here](https://githu
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/freds0/Orpheus-TTS-ptbr
-    cd Orpheus-TTS-ptbr
+    git clone https://github.com/ArtyQT/Orpheus_ptbr_Training_Alt
+    cd Orpheus_ptbr_Training_Alt
     ```
 
 2.  **Create a virtual environment (recommended):**
