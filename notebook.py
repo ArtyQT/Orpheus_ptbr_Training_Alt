@@ -16,7 +16,7 @@ repo_id = "canopylabs/3b-es_it-ft-research_release"
 local_dir = "Orpheus_ptbr_Training_Alt/3b-es_it-ft-research_release"  # Diretório onde os arquivos serão baixados
 
 try:
-    downloaded_files = snapshot_download(repo_id=repo_id, local_dir=local_dir, token=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)
+    downloaded_files = snapshot_download(repo_id=repo_id, local_dir=local_dir, token="hf_...") # Insert HF Token
     print("Checkpoint baixado com sucesso para:", local_dir)
     # Opcional: Imprimir a lista de arquivos baixados
     # print("Arquivos baixados:", downloaded_files)
