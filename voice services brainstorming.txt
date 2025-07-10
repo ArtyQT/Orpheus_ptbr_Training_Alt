@@ -1,0 +1,6 @@
+Considerations on the Voice Agent Training/Preparation
+- Short term solutions: "Off-the-shelf" voice models like OpenAI's gpt-4o, Microsoft's SpeechT5, Google Gemini, others available at HuggingFace, for quick plug-and-play features.
+	- Requirements: Figuring out the rest of the stack (STT models, generative text models for the answers, ASR models); Alternatively picking a framework (RealVoiceChat, PipeCat) that do most of the heavy lifting; Customizing deployment through web and/or mobile framework, as well as integrations.
+	- Advantages: Quicker development, no need for training, easier testing environments.
+- "Medium" term solutions: Fine-tuning open, realistic models like Orpheus, Dia or CSM on a open dataset like that of Mozilla, CORRAL, LibriSpeech, FalaBrasil.
+	- Requirements: Picking "best" model for finetuning
